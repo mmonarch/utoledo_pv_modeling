@@ -42,7 +42,7 @@ def read_pv_file(file_path, set_index=False):
 
 # Load recorded data for a certain date.
 def load_date(date=None, year=None, month=None, day=None,
-        pv_config=None, set_index=False):
+        pv_config=None, set_index=False, **kwargs):
 
     # Verify correct arguments are present
     if not date:

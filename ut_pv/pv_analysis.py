@@ -3,8 +3,10 @@
 # pv_analysis.py
 
 # Return the total energy generated over a certain time
-def total_energy(data, hdr=None, start_time=None, end_time=None):
-    if not hdr:
+def total_energy(data, **kwargs):
+    if 'hdr' in kwargs:
+        hdr = kwargs['hdr']
+    else:
         headings = ['ac power', 'total_ac_power']
         for heading in headings:
             if heading in data:
@@ -28,11 +30,7 @@ def total_energy(data, hdr=None, start_time=None, end_time=None):
         else:
             c_date = i
 
-        if start_time and start_time > c_date:
-            continue
-
-        if end_time and end_time < c_date:
-            break
+        # TODO: Add start and end time
 
         c_power = row[hdr]
 

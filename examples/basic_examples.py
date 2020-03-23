@@ -34,7 +34,7 @@ def clear_sky_power(data):
     plt.legend()
     plt.show()
 
-def total_energy(data):
+def daily_energy(data):
     times = data.index.tz_localize('EST')
     cs_data = get_clear_sky(times)
 
@@ -56,4 +56,4 @@ if __name__ == "__main__":
 
     clear_sky_irradiance(r1_data)
     clear_sky_power(r1_data)
-    total_energy(r1_data)
+    daily_energy(r1_data)
