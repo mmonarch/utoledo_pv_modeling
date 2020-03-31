@@ -17,6 +17,12 @@ PV_DATA_SECTION='PV_DATA'
 PV_DATAPATH_KEY='database_path'
 PV_FILENAME_KEY='filename_format'
 
+# Load in config file
+def load_config(file_path):
+    pv_config = ConfigParser(interpolation=None)
+    pv_config.read(PV_CONFIG)
+    return pv_config
+
 # Load the given pv data file.
 def read_pv_file(file_path, set_index=False):
 
@@ -57,7 +63,7 @@ def load_date(date=None, year=None, month=None, day=None,
     if not pv_config:
         pv_config = ConfigParser(interpolation=None)
         pv_config.read(PV_CONFIG)
-    
+
     # Create filename from date and verify it exists
     try:
         database_path = pv_config.get(PV_DATA_SECTION, PV_DATAPATH_KEY)
@@ -66,7 +72,7 @@ def load_date(date=None, year=None, month=None, day=None,
         file_path = path.join(database_path, filename)
     except:
         raise PVConfigError("An error exists in the \'{}\' section " \
-                "of the config file.")
+                "of the config file.".format(PV_DATA_SECTION))
 
     # Load data from file
     return read_pv_file(file_path, set_index)

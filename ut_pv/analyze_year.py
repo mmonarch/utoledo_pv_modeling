@@ -4,8 +4,7 @@
 
 import datetime as dt
 
-from configparser import ConfigParser
-from ut_pv.pv_io import load_date
+from ut_pv.pv_io import load_config, load_date
 
 YEAR_CONFIG='sample_year.ini'
 YEAR_BASIC_SECTION='Basic'
@@ -17,8 +16,7 @@ DATE_FMT_KEY='date_fmt'
 def run_year(daily_analysis, year_config=None, **kwargs):
     # If no config specified, load config from current directory
     if not year_config:
-        year_config = ConfigParser(interpolation=None)
-        year_config.read(YEAR_CONFIG)
+        year_config = load_config(YEAR_CONFIG)
 
     # Load settings from config
     base_year = year_config.getint(YEAR_BASIC_SECTION, BASE_YEAR_KEY)
@@ -45,3 +43,4 @@ def run_year(daily_analysis, year_config=None, **kwargs):
         active_date += dt.timedelta(days=1)
 
     return res
+

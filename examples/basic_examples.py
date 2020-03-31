@@ -7,17 +7,16 @@ import ut_pv.r1_utils as r1
 from ut_pv.pv_analysis import total_energy
 from ut_pv.pv_io import load_date
 from ut_pv.pv_model import run_models
-from ut_pv.weather import get_clear_sky
+from ut_pv.weather.irradiance import get_clear_sky
 
 import datetime as dt
 import matplotlib.pyplot as plt
 
-#
 def clear_sky_irradiance(data):
     times = data.index.tz_localize('EST')
     cs_data = get_clear_sky(times)
 
-    plt.plot(r1_data.index, r1_data['ghi'], label='actual')
+    plt.plot(times, r1_data['ghi'], label='actual')
     plt.plot(times, cs_data['ghi'], label='modeled')
     plt.legend()
     plt.show()
@@ -29,7 +28,7 @@ def clear_sky_power(data):
     rows = r1.create_r1_model()
     res = run_models(rows, cs_data)
 
-    plt.plot(data.index, data['ac power'], label='actual')
+    plt.plot(times, data['ac power'], label='actual')
     plt.plot(times, res['total_ac_power'], label='modeled')
     plt.legend()
     plt.show()
