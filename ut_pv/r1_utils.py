@@ -14,7 +14,7 @@ def get_toledo(tz):
                     toledo_alt, 'UT-R1')
 
 # Returns tuple containing model chains for all 4 rows of the R1 array
-def create_r1_model(tz=4):
+def create_r1_model(tz=4, modify_fs57=False):
     UT_R1 = get_toledo(tz)
 
     #Module/inverter details
@@ -24,6 +24,10 @@ def create_r1_model(tz=4):
 
     #import modules and inverters used in UT-R1 array
     FS_57 = sandia_modules['First_Solar_FS_55__2004__E__']  #for Rows 1 and 2
+    if modify_fs57:
+        FS_57.Isco = 1.13
+        FS_57.Vmpo = 61
+        FS_57.Bvoco = -0.29
     FS_390 = CEC_modules['First_Solar__Inc__FS_390']        #for Rows 3 and 4
 
     inverter_1 = CEC_inverters['SMA_America__SB6000U__208V_']           #for row 1
