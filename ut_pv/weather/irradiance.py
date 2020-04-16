@@ -15,7 +15,8 @@ import datetime as dt
 from pandas import DataFrame
 
 # Return the clear sky data
-def get_clear_sky(times, location=None, winds=None, temp=None, tz=4):
+def get_clear_sky(times, location=None, winds=None, temp=None,
+        tz='America/Detroit'):
     # Set location
     if not location:
         location = get_toledo(tz)
@@ -32,7 +33,8 @@ def get_clear_sky(times, location=None, winds=None, temp=None, tz=4):
     return cs_data
 
 # Use erbs model along with collected ghi to generate weather data
-def get_erbs_weather(pv_data, location=None, winds=None, temp=None, tz=4):
+def get_erbs_weather(pv_data, location=None, winds=None, temp=None,
+        tz='America/Detroit'):
     # Set location
     if not location:
         location = get_toledo(tz)
@@ -54,13 +56,14 @@ def get_erbs_weather(pv_data, location=None, winds=None, temp=None, tz=4):
     return weather_data
 
 # Use gti_dirint
-def get_sam_weather(pv_data, location=None, winds=None, temp=None, tz=4):
+def get_sam_weather(pv_data, location=None, winds=None, temp=None,
+        tz='America/Detroit'):
     # Set location
     if not location:
         location = get_toledo(tz)
 
     # Initialize time offset
-    times = pv_data.index.tz_localize('Etc/GMT+{}'.format(tz))
+    times = pv_data.index.tz_localize(tz)
     pv_data.index = times
 
     # Calculate irradiance

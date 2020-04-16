@@ -14,7 +14,7 @@ def get_toledo(tz):
                     toledo_alt, 'UT-R1')
 
 # Returns tuple containing model chains for all 4 rows of the R1 array
-def create_r1_model(tz=4, modify_fs57=False):
+def create_r1_model(tz='America/Detroit', s_tilt=35, modify_fs57=False):
     UT_R1 = get_toledo(tz)
 
     #Module/inverter details
@@ -48,7 +48,6 @@ def create_r1_model(tz=4, modify_fs57=False):
     n_modules_3_4 = mods_per_str_3_4*str_per_inv_3_4    #modules per row
 
     #Other system parameters
-    s_tilt = 35     #surface tilt +/-0.2 degrees
     azimuth = 180   #degrees south
 
     #Define Rows
